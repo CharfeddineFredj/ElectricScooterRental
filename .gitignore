@@ -11,6 +11,7 @@
 
 ###> phpunit/phpunit ###
 /phpunit.xml
+/src/Controller/UserController.php
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
