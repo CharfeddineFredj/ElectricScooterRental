@@ -1,4 +1,4 @@
-# Electric Scooter Reservation System
+# 🌟 Electric Scooter Reservation System
 
 ## 🚀 Project Description  
 The **Electric Scooter Reservation System** is an academic project designed to provide an easy-to-use platform for reserving electric scooters. Users can browse, select, and reserve scooters, while administrators manage scooter availability and user interactions. The system is built with the **Symfony** framework for the backend and **Bootstrap** for a responsive, mobile-first frontend design. This project was developed as part of my academic project.
