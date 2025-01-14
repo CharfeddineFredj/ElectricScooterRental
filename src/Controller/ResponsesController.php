@@ -15,7 +15,6 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
-use Twilio\Rest\Client;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Bridge\Outlook\Transport\Smtp\SmtpTransport;
 
@@ -167,17 +166,14 @@ class ResponsesController extends AbstractController
 
     private function sendVerificationCodeViaSMS(string $pnsup, string $verificationCode): void
     {
-       // $twilioSid = "AC6674e141d579fecb93217eb5b68c3269";
-       // $twilioToken = "0e1c15aaf5e43e0e9515c4fc7b941e55";
-       // $twilioPhoneNumber =  "+15416123246";
-      //  $client = new Client($twilioSid, $twilioToken);
-       // $smsContent = "Your verification code is: $verificationCode";
+     
+      
 
 
         $client->messages->create(
             $pnsup,
             [
-                'from' => $twilioPhoneNumber,
+              
                 'body' => $smsContent 
             ]
         );
