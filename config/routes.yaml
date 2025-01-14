@@ -1,0 +1,58 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+# config/routes.yaml
+
+app_back_index:
+    path: /back
+    controller: App\Controller\BackController::index
+    methods: GET
+
+app_back_new:
+    path: /back/new
+    controller: App\Controller\BackController::new
+    methods: [GET, POST]
+
+app_back_show:
+    path: /back/{id}
+    controller: App\Controller\BackController::show
+    methods: GET
+    requirements:
+        id: '\d+'
+
+app_back_edit:
+    path: /back/{id}/edit
+    controller: App\Controller\BackController::edit
+    methods: [GET, POST]
+    requirements:
+        id: '\d+'
+
+app_back_delete:
+    path: /back/{id}
+    controller: App\Controller\BackController::delete
+    methods: POST
+    requirements:
+        id: '\d+'
+
+
+
+
+app_login:
+    path: /login
+    controller: App\Controller\UserController::login
+    methods: [GET, POST]
+
+app_register:
+    path: /register
+    controller: App\Controller\UserController::register
+    methods: [GET, POST]
+app_scooter_booking:
+    path: /scooter-booking
+    controller: App\Controller\ScooterController::booking
+    methods: [GET]
+chart_route:
+    path: /chart
+    controller: App\Controller\ChartController::index
+

@@ -1,0 +1,61 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}New Announcement{% endblock %}
+
+
+{% block body %}
+
+    <h1  class="p-3 text-center">Create new Announcement</h1>
+
+    {{ include('announcement/_form.html.twig') }}
+
+    <a href="{{ path('app_announcement_index') }}">back to list</a>
+
+
+{% block javascripts %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('.custom-form form');
+    form.addEventListener('submit', function(e) {
+        let isValid = true;
+        const textInputs = form.querySelectorAll('.form-control');
+        const fileInput = form.querySelector('.form-control-file');
+
+        // Validate text inputs for emptiness
+        textInputs.forEach(input => {
+            const errorDiv = input.nextElementSibling;
+            if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add('is-invalid');
+                errorDiv.textContent = 'This field is required';
+                errorDiv.style.display = 'block'; // Make error message visible
+            } else {
+                input.classList.remove('is-invalid');
+                errorDiv.textContent = '';
+                errorDiv.style.display = 'none'; // Hide error message
+            }
+        });
+
+        // Validate file input for file presence
+        if (!fileInput.files.length) {
+            isValid = false;
+            fileInput.classList.add('is-invalid');
+            fileInput.nextElementSibling.textContent = 'Please upload a file';
+            fileInput.nextElementSibling.style.display = 'block'; // Show error message
+        } else {
+            fileInput.classList.remove('is-invalid');
+            fileInput.nextElementSibling.textContent = '';
+            fileInput.nextElementSibling.style.display = 'none'; // Hide error message
+        }
+
+        if (!isValid) {
+            e.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+});
+</script>
+
+
+{% endblock %}
+{% endblock %}

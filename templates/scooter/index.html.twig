@@ -1,0 +1,238 @@
+{% extends 'home/index.html.twig' %}
+
+{% block title %}Scooter{% endblock %}
+
+{% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header">
+        <h1 class="display-3 text-uppercase text-white mb-3">ELECTRIC Scooters Listing</h1>
+        <div class="d-inline-flex text-white">
+            <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+            <h6 class="text-body m-0 px-3">/</h6>
+            <h6 class="text-uppercase text-body m-0">E.scooters Listing</h6>
+        </div>
+    </div>
+    <!-- Page Header Start -->
+
+
+    <!-- Rent A Car Start -->
+    <div class="container-fluid py-5">
+        <div class="container pt-5 pb-3">
+            <h1 class="display-4 text-uppercase text-center mb-5">Find Your ELECTRIC Scooter</h1>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-2">
+                        <div class="rent-item mb-4">
+    <img class="img-fluid mb-4" src="img/T1.jpg" alt="Scooter 1" width="100%">
+    <h4 class="text-uppercase mb-4">Scooter 1</h4>
+    <div class="d-flex justify-content-center mb-4">
+        <span>10.00/Hour</span>
+    </div>
+    <!-- Ajout de l'attribut onclick qui appelle saveScooterData avec 'this' comme argument -->
+    <a class="btn btn-primary px-3" href="{{ path('app_scooter_booking') }}"
+       data-name="Scooter 1" data-price="10.00" data-image="img/T2.jpg"
+       onclick="saveScooterData(this); return false;">
+       Reserve Now
+    </a>
+</div>
+
+                </div>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/TT8.png" alt="" width=50%>
+                        <h4 class="text-uppercase mb-4">Scooter 2</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <span>15.00 TND/Hour</span>
+                        </div>
+                   <a class="btn btn-primary px-3" href="{{ path('app_scooter_booking') }}"
+                    data-name="Scooter 2" data-price="15.00" data-image="img/TT8.png"
+                    onclick="saveScooterData(this); return false;">
+                    Reserve Now
+                    </a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/tt10.png" alt="" width=50%>
+                        <h4 class="text-uppercase mb-4">Scooter 3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <span>20.00/Hour</span>
+                        </div>
+                                                <a class="btn btn-primary px-3" href="{{ path('app_scooter_booking') }}"
+                        data-name="Scooter 3" data-price="20.00" data-image="img/tt13.png"
+                        onclick="saveScooterData(this); return false;">
+                        Reserve Now
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/tt13.png" alt="" width=100%>
+                        <h4 class="text-uppercase mb-4">Scooter 4 </h4>
+                        <div class="d-flex justify-content-center mb-4">
+                             <span>15 TND/HOUR</span>
+                        </div>
+                        <a class="btn btn-primary px-3"  href={{ path('app_scooter_booking') }}>Reserve Now</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/TT2.png" alt="">
+                        <h4 class="text-uppercase mb-4">Scooter 5</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary px-3" href="">10 TND/HOUR</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/tt12.png" alt="">
+                        <h4 class="text-uppercase mb-4">Scooter 6</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary px-3" href="">15 TND/HOUR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Rent A Car End -->
+
+
+    <!-- Banner Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row mx-0">
+                <div class="col-lg-6 px-0">
+                    <div class="px-5 bg-secondary d-flex align-items-center justify-content-between" style="height: 350px;">
+                        
+                        <div class="text-right">
+                            <h3 class="text-uppercase text-light mb-3">Want to be driver?</h3>
+                           
+                            <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 px-0">
+                    <div class="px-5 bg-dark d-flex align-items-center justify-content-between" style="height: 350px;">
+                        <div class="text-left">
+                            <h3 class="text-uppercase text-light mb-3">Looking for a ELECTRIC scooter</h3>
+                           
+                            <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->
+
+
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="owl-carousel vendor-carousel">
+                <div class="bg-light p-4">
+                    <img src="img/tt2.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt10.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt12.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt9.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt8.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt7.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt11.png" alt="">
+                </div>
+                <div class="bg-light p-4">
+                    <img src="img/tt13.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+       <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select only the buttons that are expected to have the necessary data attributes
+        const reserveButtons = document.querySelectorAll('a.btn-primary[data-name]');
+
+        reserveButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent the default anchor click behavior
+
+                // Retrieve data attributes from the button
+                const scooterName = this.getAttribute('data-name') || 'Default Name';
+                const scooterPrice = this.getAttribute('data-price') || '0.00';
+                const scooterImage = this.getAttribute('data-image') || 'path/to/default/image.jpg';
+
+                // Debugging log
+                console.log('Reserving:', scooterName, scooterPrice, scooterImage);
+
+                // Safely store the data in sessionStorage
+                try {
+                    sessionStorage.setItem('scooterName', scooterName);
+                    sessionStorage.setItem('scooterPrice', scooterPrice);
+                    sessionStorage.setItem('scooterImage', scooterImage);
+
+                    // Redirect to the booking page
+                    window.location.href = this.href;
+                } catch (e) {
+                    console.error('Error storing items in sessionStorage: ', e);
+                }
+            });
+        });
+    });
+</script>
+    {% endblock %}
+    
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/main.js') }}"></script>
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reservation Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 125px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reservation Receipt</h1></br></br>
+        {% if reservation.offerStatus == 'valid' %}
+                       <h3 class="card-text">Congratulations you have won {{ reservation.offer.details }}</h3>
+             {% endif %}
+        <table>
+            <tr>
+                <th>Reference</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ reservation.model }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ reservation.qte }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ reservation.prix }} TND</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ reservation.datersv|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ reservation.heurersv|date('H:i') }}</td>
+            </tr>
+            <tr>
+                <th>Period</th>
+                <td>{{ reservation.periode }} Hours</td>
+            </tr>
+            <tr>
+                <th>Tax 10%</th>
+                <td>{{ reservation.impot }} TND</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ reservation.total }} TND</td>
+            </tr>
+            <tr>
+                <th>Total Amount</th>
+                <td>{{ reservation.mtotal }} TND</td>
+            </tr>
+             
+        </table>
+    </div>
+     <div style="text-align: center; margin-top: 50px;">
+        <h3>ESPRISCO</h3>
+        <h3>Fait à Tunis le {{ "now"|date('Y-m-d') }}</h3>
+    </div>
+</body>
+</html>

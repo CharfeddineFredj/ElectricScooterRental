@@ -1,0 +1,139 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <!-- Ajouter un espace en haut -->
+    <div style="margin-bottom: 50px;"></div>
+
+    <!-- Table Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-8">
+                <a class="btn btn-success" href="{{ path('trotinette_add')}}">
+                    <i class="fas fa-plus"></i> ajouter trotinette
+                </a>
+                <a class="btn btn-success" href="{{ path('app_generate_excel')}}">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </a>
+                <a class="btn btn-success" href="{{ path('statistiques')}}">
+                    <i class="fas fa-chart-bar"></i> Statistiques 
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <form class="d-flex" id="search-form">
+                    <div class="d-flex align-items-center"> 
+                        <input class="form-control mt-4 custom-border" type="text" id="searchKeyword" placeholder="Enter speed">
+                        <button class="btn btn-primary mt-4 mx-2" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="trotinette-list"></div>
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">Liste Trotinette</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Vitesse</th>
+                        <th scope="col">Charge</th>
+                        <th scope="col">Couleur</th>
+                        <th scope="col">Disponibilite</th>
+                        <th scope="col">Station</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+                {% for element in c %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ element.idTrotinette}}</th>
+                        <td>{{ element.vitesse}}</td>
+                        <td>{{ element.charge}}</td>
+                        <td>{{ element.couleur}}</td>
+                        <td>{{ element.dispo}}</td>
+                        <td>{{ element.idStation.name}}</td>
+                        <td>
+                            <a class="btn btn-outline-success" href="{{ path('trotinette_update' , {'id': element.idTrotinette})}}" >Modifier</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-danger" href="{{ path('deleteT' , {'id': element.idTrotinette})}}" >Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <!-- Table End -->
+
+    <!-- Ajouter un espace en bas -->
+    <div style="margin-bottom: 50px;"></div>
+    
+    <!-- Pagination controls -->
+    <div class="pagination-custom text-center mt-3">
+        {{ knp_pagination_render(c) }}
+    </div>
+
+    <!-- Client-side dynamic search script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#searchKeyword").on("input", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle(
+                        $(this).find('td:nth-child(2)').text().toLowerCase().startsWith(value) ||
+                        $(this).find('td:nth-child(4)').text().toLowerCase().startsWith(value)
+                    );
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* Custom pagination styles */
+        .pagination-custom {
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .pagination-custom .page-item {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .pagination-custom .page-item .page-link {
+            background-color: #333;
+            border-color: #333;
+            color: #fff;
+            padding: 6px 12px; /* Adjust padding to increase/decrease button size */
+            border-radius: 5px; /* Add border radius for rounded corners */
+        }
+
+        .pagination-custom .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination-custom .page-item.disabled .page-link {
+            color: #6c757d;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+
+        .custom-border {
+            border: 1px solid #ced4da; /* Définir une bordure de 1 pixel solide avec une couleur grise */
+            border-radius: 5px; /* Ajouter un rayon de bordure pour arrondir les coins */
+        }
+    </style>
+
+    <!-- JavaScript function to open chart window -->
+    <script>
+        function openChartWindow(url) {
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+    </script>
+
+{% endblock %}

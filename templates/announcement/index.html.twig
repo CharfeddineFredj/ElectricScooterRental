@@ -1,0 +1,102 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+
+            <h1 class="mb-4 text-center">Announcement Management</h1>
+            <input class="form-control custom-search mt-2 my-3" type="search" placeholder="Search" id="searchKeyword">
+              <table class="table table-striped table-bordered" style="border-color: black; background-color: white;">
+        <thead style="background-color: #555; color: white;">
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>CreatedAt</th>
+                        <th>UpdatedAt</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for announcement in announcements %}
+                    <tr>
+                        <td>{{ announcement.id }}</td>
+                        <td>{{ announcement.title }}</td>
+                        <td>{{ announcement.description }}</td>
+                        <td>
+                            {% if announcement.imageName %}
+                            <img src="{{ asset('images/announcements/' ~ announcement.imageName) }}" alt="Image for {{ announcement.title }}" style="height: 100px;">
+                            {% else %}
+                            No image
+                            {% endif %}
+                        </td>
+                        <td>{{ announcement.createdAt ? announcement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ announcement.updatedAt ? announcement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <button onclick="window.location.href='{{ path('app_announcement_edit', {'id': announcement.id}) }}'" class="edit-btn">Edit</button>
+                            <form method="post" action="{{ path('app_announcement_delete', {'id': announcement.id}) }}" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ announcement.id) }}">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                             <td colspan="11" style="text-align: center; color:red;">No records found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('app_announcement_new') }}">Create new</a>
+        </div>
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#searchKeyword").on("input", function() {
+            var value = $(this).val().toLowerCase();
+            $("tbody tr").filter(function() {
+                $(this).toggle(
+                    $(this).find('td:nth-child(1)').text().toLowerCase().startsWith(value) ||
+                    $(this).find('td:nth-child(2)').text().toLowerCase().startsWith(value)
+                );
+            });
+        });
+    });
+</script>
+
+<style>
+
+.edit-btn {
+    background-color: #FFA500; /* couleur de fond pour le bouton */
+    color: white; /* couleur du texte */
+    border: none; /* enlever la bordure */
+    padding: 5px 10px; /* espace à l'intérieur du bouton */
+    border-radius: 5px; /* arrondir les coins */
+    cursor: pointer; /* changer le curseur au survol */
+    margin-bottom: 8px; /* espacement à droite */
+    text-decoration: none; /* enlever le soulignement */
+}
+
+/* Style pour le bouton "Delete" */
+.delete-btn {
+    background-color: #dc3545; /* couleur de fond pour indiquer danger */
+    color: white; /* couleur du texte */
+    border: none; /* enlever la bordure */
+    padding: 5px 10px; /* espace à l'intérieur du bouton */
+    border-radius: 5px; /* arrondir les coins */
+    cursor: pointer; /* changer le curseur au survol */
+    text-decoration: none; /* enlever le soulignement */
+}
+.custom-search {
+    border: 1px solid #ced4da;
+    border-radius: 5px; 
+    width: 250px; 
+    color: #fff;
+}
+</style>
+
+{% endblock %}

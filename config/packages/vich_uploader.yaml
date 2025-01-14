@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        announcement_images:
+            uri_prefix: /images/announcements
+            upload_destination: '%kernel.project_dir%/public/images/announcements'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

@@ -1,0 +1,121 @@
+{% extends 'home/default.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<style>
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+button.btn-primary {
+    background-color: #007bff; /* Couleur bleue pour le bouton "Connexion" */
+    color: #fff; /* Texte en blanc */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3; /* Couleur bleue foncée au survol */
+}
+.error {
+    color: red; /* Couleur rouge pour les messages d'erreur */
+    margin-top: 5px; /* Espacement supplémentaire en haut des messages d'erreur */
+}
+
+.text-center {
+    text-align: center;
+}
+
+</style>
+
+<div class="container">
+   <h1 class="text-center">Register</h1>
+
+    {{  form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'registration-form'}}) }}
+        <div class="form-group">
+            {{ form_label(form.nom) }}
+            {{ form_widget(form.nom) }}
+            {% if form_errors(form.nom) %}
+                <div class="error">
+                    {{ form_errors(form.nom) }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.mail) }}
+            {{ form_widget(form.mail) }}
+            {% if form_errors(form.mail) %}
+                <div class="error">
+                    {{ form_errors(form.mail) }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.numTel) }}
+            {{ form_widget(form.numTel) }}
+            {% if form_errors(form.numTel) %}
+                <div class="error">
+                    {{ form_errors(form.numTel) }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.adresse) }}
+            {{ form_widget(form.adresse) }}
+            {% if form_errors(form.adresse) %}
+                <div class="error">
+                    {{ form_errors(form.adresse) }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.mdp) }}
+            {{ form_widget(form.mdp) }}
+            {% if form_errors(form.mdp) %}
+                <div class="error">
+                    {{ form_errors(form.mdp) }}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{# templates/announcement/_form.html.twig #}
+
+<style>
+/* Your CSS remains unchanged */
+.custom-form .form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    color: #721c24;  /* dark red */
+    background-color: #f8d7da;  /* light pink */
+    border-color: #f5c6cb;  /* soft red */
+    padding: .75rem 1.25rem;
+    margin-top: .25rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    font-size: 0.875rem;
+    display: none; /* initially hidden */
+}
+
+.form-control.is-invalid, .form-control-file.is-invalid {
+    border-color: #dc3545; /* bootstrap's invalid border color */
+    padding-right: calc(1.5em + .75rem); /* room for error icon */
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control, .form-control:focus {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    background-color: white;
+    color: black;
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control-file {
+    width: 40%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    background-color: white;
+    color: black;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: block;
+    width: auto;
+    margin: 20px auto;
+}
+
+.announcement-image {
+    width: 200px;
+    height: auto;  /* maintains the aspect ratio */
+}
+</style>
+
+<div class="container mt-5">
+    <div class="custom-form">
+        {{ form_start(form, {'attr': {'class': 'form-container'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-msg"></div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-msg"></div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.imageFile) }}
+            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control-file'}}) }}
+            <div class="error-msg"></div>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>

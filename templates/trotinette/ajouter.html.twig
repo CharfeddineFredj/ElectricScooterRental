@@ -1,0 +1,35 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">Ajouter Trottinette</h6>
+                    <form method="post">
+                        {{ form_start(form) }}
+                        
+                        {{ form_errors(form) }} {# Affiche les erreurs globales du formulaire #}
+                        
+                        {{ form_row(form.vitesse, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Vitesse'}}) }}
+                        <span style="color: red;">{{ form_errors(form.vitesse) }}</span>
+                        
+                        {{ form_row(form.charge, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Charge'}}) }}
+                        <span style="color: red;">{{ form_errors(form.charge) }}</span>
+                        
+                        {{ form_row(form.couleur, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Couleur'}}) }}
+                        <span style="color: red;">{{ form_errors(form.couleur) }}</span>
+
+                        {{ form_row(form.dispo, {'attr': {'class': 'form-control mb-3', 'placeholder': 'oui/non'}}) }}
+                        <span style="color: red;">{{ form_errors(form.dispo) }}</span>
+                        
+                        {{ form_row(form.idStation, {'attr': {'class': 'form-control mb-3', 'placeholder': 'Transmission'}}) }}
+                        <span style="color: red;">{{ form_errors(form.idStation) }}</span>
+                   
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

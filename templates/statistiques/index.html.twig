@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Utiliser toute la hauteur de l'écran */
+        }
+    </style>
+
+    <h1 class="text-center mb-4">Statistiques des trottinettes par station</h1>
+    <div class="chart-container">
+        <div style="width: 600px; height: 400px;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        {% for station in stationsWithTrottinettesCount %}
+                            '{{ station.station_name }}',
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        label: 'Nombre de trottinettes',
+                        data: [
+                            {% for station in stationsWithTrottinettesCount %}
+                                {{ station.trotinettes_count }},
+                            {% endfor %}
+                        ],
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1 // Définir l'incrément de l'axe y
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 14 // Définir la taille de la police de la légende
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

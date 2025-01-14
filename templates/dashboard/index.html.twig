@@ -1,0 +1,215 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Reservation Management{% endblock %}
+
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // JavaScript for dynamic updates or alerts here
+    });
+</script>
+
+<style>
+    .bar-chart-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        height: 200px; /* Fixed height for the chart */
+        width: 60%; /* Adjusted width for better visibility */
+        margin: 40px auto;
+        padding: 50px 0 0; /* Padding for axis labels */
+        border-left: 2px solid white; /* Y-axis */
+        border-bottom: 2px solid white; /* X-axis */
+        position: relative;
+    }
+
+    .percentage-label {
+        position: absolute;
+        left: -50px; /* Adjust according to actual layout */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-top: 10px; /* Align with the top of the chart */
+    }
+
+    .percentage-mark {
+        position: absolute;
+        left: -10px;
+    }
+
+    .bar {
+        width: 70px; /* Bar width */
+        height: calc(100% - 10px); /* Subtracting space for labels */
+        background-color: #DDD;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-right: 30px; /* Space between bars */
+    }
+
+    .confirmed-bar, .canceled-bar, .pending-bar {
+        transition: height 0.3s ease-out; /* Smooth transitions for bar growth */
+    }
+
+    .confirmed-bar {
+        background-color: #C8E6C9;
+        height: {{ confirmedPercentage }}%;
+    }
+
+    .canceled-bar {
+        background-color: #FFCDD2;
+        height: {{ canceledPercentage }}%;
+    }
+
+    .pending-bar {
+        background-color: #FFECB3;
+        height: {{ pendingPercentage }}%;
+    }
+
+    .bar-text {
+        position: absolute;
+        top: -20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .axis-label-y {
+        position: absolute;
+        top: -25px; /* Positioning y-axis label above the chart */
+        left: -30px; /* Align with y-axis */
+    
+    }
+
+    .axis-label-x {
+        position: absolute;
+        bottom: -30px; /* Below the bars */
+        width: 100%;
+        text-align: center;
+    }
+    .chart-legend {
+    display: flex;
+    justify-content: center; /* Center legend items horizontally */
+    margin-top: 20px; /* Space between chart and legend */
+}
+
+.legend-item {
+    display: flex;
+    align-items: center; /* Align the color box and text vertically */
+    margin-right: 15px; /* Space between legend items */
+}
+
+.legend-color {
+    width: 20px; /* Width of the color box */
+    height: 20px; /* Height of the color box */
+    display: inline-block; /* Make the span behave like an inline block */
+    margin-right: 5px; /* Space between color box and text */
+}
+
+.confirmed-color {
+    background-color: #C8E6C9; /* Greenish color for confirmed */
+}
+
+.canceled-color {
+    background-color: #FFCDD2; /* Reddish color for canceled */
+}
+
+.pending-color {
+    background-color: #FFECB3; /* Yellowish color for pending */
+}
+
+</style>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Reservation Management</h2>
+
+    <!-- Reservation Table -->
+    <table class="table table-striped table-bordered" style="border-color: black; background-color: white;">
+        <thead style="background-color: #555; color: white;">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Model</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Period</th>
+                <th scope="col">Tax</th>
+                <th scope="col">Total</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+            <tr>
+                <th scope="row">{{ reservation.id }}</th>
+                <td>{{ reservation.model }}</td>
+                <td>{{ reservation.qte }}</td>
+                <td>{{ reservation.prix }}</td>
+                <td>{{ reservation.datersv|date('Y-m-d') }}</td>
+                <td>{{ reservation.heurersv|date('H:i') }}</td>
+                <td>{{ reservation.periode }}</td>
+                <td>{{ reservation.impot }}</td>
+                <td>{{ reservation.total }}</td>
+                <td>{{ reservation.mtotal }}</td>
+                <td>
+                    <form method="post" action="{{ path('app_reservation_update_status', {'id': reservation.id}) }}" class="status-update-form">
+                        <input type="hidden" name="_token" value="{{ csrf_token('update_status' ~ reservation.id) }}">
+                        <select class="form-select" name="status" style="background-color: {{ reservation.status == 'Pending' ? '#FFECB3' : (reservation.status == 'Confirmed' ? '#C8E6C9' : '#FFCDD2') }};" onchange="this.form.submit()">
+                            <option value="Pending" style="background-color: #FFECB3;" {{ reservation.status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="Confirmed" style="background-color: #C8E6C9;" {{ reservation.status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="Canceled" style="background-color: #FFCDD2;" {{ reservation.status == 'Canceled' ? 'selected' : '' }}>Canceled</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="11" style="text-align: center;">No records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Bar Chart for Reservations -->
+    <div class="bar-chart-container">
+        <!-- Adding percentage labels -->
+        <div class="percentage-label">
+            <span the "percentage-mark">100%</span>
+            <span the "percentage-mark">75%</span>
+            <span the "percentage-mark">50%</span>
+            <span the "percentage-mark">25%</span>
+            <span the "percentage-mark">0%</span>
+        </div>
+        <div class="bar confirmed-bar">
+            <div class="bar-indicator" style="height: {{ confirmedPercentage }}%;"></div>
+            <span class="bar-text">{{ confirmedPercentage }}%</span>
+        </div>
+        <div class="bar canceled-bar">
+            <div class="bar-indicator" style="height: {{ canceledPercentage }}%;"></div>
+            <span class="bar-text">{{ canceledPercentage }}%</span>
+        </div>
+        <div class="bar pending-bar">
+            <div class="bar-indicator" style="height: {{ pendingPercentage }}%;"></div>
+            <span class="bar-text">{{ pendingPercentage }}%</span>
+        </div>
+        <span class="axis-label-y">Percentage</span>
+        <span the "axis-label-x">Reservation Status</span>
+    </div>
+    <div class="chart-legend">
+    <div class="legend-item">
+        <span class="legend-color confirmed-color"></span> Confirmed
+    </div>
+    <div class="legend-item">
+        <span class="legend-color canceled-color"></span> Canceled
+    </div>
+    <div class="legend-item">
+        <span class="legend-color pending-color"></span> Pending
+    </div>
+</div>
+</div>
+
+{% endblock %}

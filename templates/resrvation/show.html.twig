@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<title>Reservation</title>
+
+{% block body %}
+    <h1>Reservation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ reservation.model }}</td>
+            </tr>
+            <tr>
+                <th>Qte</th>
+                <td>{{ reservation.qte }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ reservation.prix }}</td>
+            </tr>
+            <tr>
+                <th>Datersv</th>
+                <td>{{ reservation.datersv|date('Y-m-d') }}/td>
+            </tr>
+            <tr>
+                <th>Heurersv</th>
+                <td>{{ reservation.heurersv }}</td>
+            </tr>
+            <tr>
+                <th>Periode</th>
+                <td>{{ reservation.periode }}</td>
+            </tr>
+            <tr>
+                <th>Impot</th>
+                <td>{{ reservation.impot }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ reservation.total }}</td>
+            </tr>
+            <tr>
+                <th>Mtotal</th>
+                <td>{{ reservation.mtotal }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resrvation_index') }}">back to list</a>
+
+    <a href="{{ path('app_resrvation_edit', {'id': reservation.id}) }}">edit</a>
+
+    {{ include('resrvation/_delete_form.html.twig') }}
+{% endblock %}

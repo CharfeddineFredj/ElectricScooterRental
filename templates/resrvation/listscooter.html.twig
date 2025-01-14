@@ -1,0 +1,156 @@
+{% extends 'home/index.html.twig' %}
+{% block title %}Scooter{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+{% block body %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header">
+   <h1 class="display-3 text-uppercase text-white mb-3">ELECTRIC Scooters Listing</h1>
+   <div class="d-inline-flex text-white">
+      <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+      <h6 class="text-body m-0 px-3">/</h6>
+      <h6 class="text-uppercase text-body m-0">E.scooters Listing</h6>
+   </div>
+</div>
+<!-- Page Header Start -->
+<!-- Rent A Car Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <h1 class="display-4 text-uppercase text-center mb-5">Find Your ELECTRIC SCOOTER</h1>
+        <div class="row">
+            {% for trotinette in trotinettes %}
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="{{ asset('img/tt7.png') }}" alt="">
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fas fa-qrcode fa-3x text-primary"></i> <!-- Utilisez l'icône de QR code -->
+                            <a href="{{ path('app_my_commandes', {'stationName': trotinette.idStation.name}) }}">
+                                <i class="fas fa-qrcode fa-3x text-primary"></i> <!-- Utilisez l'icône de QR code -->
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fas fa-circle text-primary mr-1"></i>
+                            <span>{{ trotinette.couleur }}</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-battery-full text-primary mr-1"></i>
+                            <span>{{ trotinette.charge }}</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-tachometer-alt text-primary mr-1" ></i>
+                            <span>{{ trotinette.vitesse }}</span>
+                        </div>
+                    </div>
+                    <a class="" href="{{ path('reservation_new', {'idTrotinette': trotinette.idTrotinette, 'vitesse': trotinette.vitesse}) }}" id="bouton-reserver">
+                        <i ></i> reserver
+                    </a>
+                </div>
+            </div>
+            {% endfor %} <!-- Closing for loop -->
+        </div>
+    </div>
+</div>
+<!-- Rent A Car End -->
+
+<!-- Banner Start -->
+<div class="container-fluid py-5">
+   <div class="container py-5">
+      <div class="row mx-0">
+         <div class="col-lg-6 px-0">
+            <div class="px-5 bg-secondary d-flex align-items-center justify-content-between" style="height: 350px;">
+               <div class="text-right">
+                  <h3 class="text-uppercase text-light mb-3">Want to be driver?</h3>
+                  <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-6 px-0">
+            <div class="px-5 bg-dark d-flex align-items-center justify-content-between" style="height: 350px;">
+               <div class="text-left">
+                  <h3 class="text-uppercase text-light mb-3">Looking for a ELECTRIC scooter</h3>
+                  <a class="btn btn-primary py-2 px-4" href="">Start Now</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Banner End -->
+<!-- Vendor Start -->
+<div class="container-fluid py-5">
+   <div class="container py-5">
+      <div class="owl-carousel vendor-carousel">
+         <div class="bg-light p-4">
+            <img src="img/tt2.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt10.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt12.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt9.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt8.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt7.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt11.png" alt="">
+         </div>
+         <div class="bg-light p-4">
+            <img src="img/tt13.png" alt="">
+         </div>
+      </div>
+   </div>
+</div>
+    {% for trotinette in trotinettes %}
+
+<!-- Vendor End -->
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+       // Select only the buttons that are expected to have the necessary data attributes
+       const reserveButtons = document.querySelectorAll('a.btn-primary[data-name]');
+       reserveButtons.forEach(button => {
+           button.addEventListener('click', function(event) {
+               event.preventDefault();  // Prevent the default anchor click behavior
+   
+               // Retrieve data attributes from the button
+               const scooterName = this.getAttribute('data-name') || 'Default Name';
+ {% set scooterPrice = trotinette.vitesse * 0.8 %}
+                  <a class="btn btn-primary px-3" href="{{ path('reservation_new', {'idTrotinette': trotinette.idTrotinette, 'vitesse': trotinette.vitesse}) }}"
+                     onclick="saveScooterData(this); return false;">{{ scooterPrice }} TND/HOUR</a>               const scooterImage = this.getAttribute('data-image') || 'path/to/default/image.jpg';
+   
+               // Debugging log
+               console.log('Reserving:', scooterName, scooterPrice, scooterImage);
+   
+               // Safely store the data in sessionStorage
+               try {
+                   sessionStorage.setItem('scooterName', scooterName);
+                   sessionStorage.setItem('scooterPrice', scooterPrice);
+                   sessionStorage.setItem('scooterImage', scooterImage);
+   
+                   // Redirect to the booking page
+                   window.location.href = this.href;
+               } catch (e) {
+                   console.error('Error storing items in sessionStorage: ', e);
+               }
+           });
+       });
+   });
+</script>
+            {% endfor %}
+
+{% endblock %}
+{% block javascripts %}
+ {{ parent() }}
+  <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}

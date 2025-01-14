@@ -1,0 +1,55 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+
+            <!-- Table Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+
+
+                    <div class="col-sm-12 col-xl-8">
+                    <a class="btn btn-success" href="{{ path('station_add')}}" >Ajouter station</a>
+                   
+                        <div class="bg-secondary rounded h-100 p-4 mt-3">
+                            <h6 class="mb-4">Liste station</h6>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">lieu</th>
+                                        <th scope="col">etat</th>
+                                        <th scope="col">name</th>
+                                        <th scope="col">Modifier</th>
+                                        <th scope="col">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                {% for element in c %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{ element.idStation}}</th>
+                                        <td>{{ element.lieu}}</td>
+                                        <td>{{ element.etat}}</td>
+                                        <td>{{ element.name}}</td>
+                                        <td>
+                                        <a class="btn btn-outline-success" href="{{ path('station_update' , {'id': element.idStation})}}" >Modifier</a>
+                                        </td>
+                                        <td>
+                                        <a class="btn btn-outline-danger" href="{{ path('deleteS' , {'id': element.idStation})}}" >Supprimer</a>
+                                        </td>
+
+                                    </tr>
+                                    </tr>
+                                </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- Table End -->
+               <div style="margin-bottom: 50px;"></div>
+{% endblock %}
