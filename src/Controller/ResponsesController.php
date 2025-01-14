@@ -167,11 +167,11 @@ class ResponsesController extends AbstractController
 
     private function sendVerificationCodeViaSMS(string $pnsup, string $verificationCode): void
     {
-        $twilioSid = "AC6674e141d579fecb93217eb5b68c3269";
-        $twilioToken = "0e1c15aaf5e43e0e9515c4fc7b941e55";
-        $twilioPhoneNumber =  "+15416123246";
-        $client = new Client($twilioSid, $twilioToken);
-        $smsContent = "Your verification code is: $verificationCode";
+       // $twilioSid = "AC6674e141d579fecb93217eb5b68c3269";
+       // $twilioToken = "0e1c15aaf5e43e0e9515c4fc7b941e55";
+       // $twilioPhoneNumber =  "+15416123246";
+      //  $client = new Client($twilioSid, $twilioToken);
+       // $smsContent = "Your verification code is: $verificationCode";
 
 
         $client->messages->create(

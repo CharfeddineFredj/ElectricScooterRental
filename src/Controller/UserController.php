@@ -103,9 +103,9 @@ class UserController extends AbstractController
         // Ajouter le préfixe international "+216"
         $toNumber = '+216' . $toNumber;
     
-        $twilioSid = 'AC82b205abd90eba0ecaf975b8a2323271';
-        $twilioToken = 'c3dd6081f435b73647b509db65042869';
-        $client = new Client($twilioSid, $twilioToken);
+       // $twilioSid = 'AC82b205abd90eba0ecaf975b8a2323271';
+       // $twilioToken = 'c3dd6081f435b73647b509db65042869';
+       // $client = new Client($twilioSid, $twilioToken);
     
         $fromNumber = '+12512501928'; // Votre numéro de téléphone Twilio
         $messageBody = 'Bienvenue sur notre plateforme ! Vous avez été inscrit avec succès.';
