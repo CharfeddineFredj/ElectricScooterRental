@@ -39,7 +39,7 @@ This project follows an **Agile** methodology with iterative development and tes
 
 ### 🏠 Home Page
 
-![Uploading screencapture-127-0-0-1-8000-2025-02-16-18_14_21.png…]()
+![screencapture-127-0-0-1-8000-2025-02-16-18_14_21](https://github.com/user-attachments/assets/6cc68f95-7063-4f4d-b991-1f91657ad5ca)
 
 
 ### 🚲 Reserve Scooter
